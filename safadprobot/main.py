@@ -2,7 +2,6 @@
 from safadprobot.utils.helpers import init_db
 
 if __name__ == "__main__":
-    init_db()
-    print("✅ Tables created successfully.")
+
 
 
