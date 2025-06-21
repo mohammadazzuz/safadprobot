@@ -29,7 +29,7 @@
                     <select class="form-select" id="guildSelect" name="guild_id" onchange="this.form.submit()">
                         <option selected disabled>اختر السيرفر</option>
                         {% for guild in guilds %}
-                            <option value="{{ guild.id }}" {% if selected_guild == guild.id %}selected{% endif %}>{{ guild.name }}</option>
+                            <option value="{{ guild.id }}" {{ "selected" if selected_guild == guild.id else "" }}>{{ guild.name }}</option>
                         {% endfor %}
                     </select>
                 </div>
