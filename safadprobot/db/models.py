@@ -1,6 +1,6 @@
 # SQLAlchemy models
 from sqlalchemy import Column, String, BigInteger, JSON
-from .database import Base
+from safadprobot.db.database import Base
 
 class GuildSettings(Base):
     __tablename__ = "guild_settings"

@@ -1,6 +1,6 @@
 # OAuth2 callback logic
 from flask import Blueprint, request, redirect, session
-from auth.discord_oauth import get_access_token, get_user_info
+from safadprobot.auth.discord_oauth import get_access_token, get_user_info
 
 callback_bp = Blueprint("callback", __name__)
 

@@ -1,6 +1,6 @@
 # Flask dashboard routes
 from flask import Blueprint, render_template, session, redirect, request
-from auth.discord_oauth import generate_login_url
+from safadprobot.auth.discord_oauth import generate_login_url
 
 dashboard_bp = Blueprint("dashboard", __name__)
 
