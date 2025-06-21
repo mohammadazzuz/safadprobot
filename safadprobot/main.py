@@ -42,6 +42,8 @@ print("[BOT] Bot thread started.")
 def callback():
     return handle_callback()
 
+print(app.url_map)
+
 # تشغيل تطبيق Flask
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 8080))
