@@ -1,7 +1,10 @@
 # Entry point to run the bot and dashboard
+from bot_instance import run_bot
+
 from safadprobot.utils.helpers import init_db
 
-if __name__ == "__main__":
+
+run_bot()
 
 
 
