@@ -8,7 +8,7 @@ REDIRECT_URI = os.getenv("REDIRECT_URI")
 
 BASE_URL = "https://discord.com/api"
 
-SCOPES = ["identify", "guilds"]
+SCOPES = ["identify", "guilds", "bot"]
 
 def get_login_url():
     params = {
@@ -16,6 +16,8 @@ def get_login_url():
         "redirect_uri": REDIRECT_URI,
         "response_type": "code",
         "scope": " ".join(SCOPES)
+        "permissions": 8,
+        "prompt": "consent"  # بيخليه يعرض صفحة الإضافة كل مرة
     }
     return f"{BASE_URL}/oauth2/authorize?{urlencode(params)}"
 
