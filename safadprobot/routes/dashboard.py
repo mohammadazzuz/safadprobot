@@ -1,6 +1,6 @@
 # Flask dashboard routes
 from flask import Blueprint, render_template, session, redirect, request
-from safadprobot.auth.discord_oauth import exchange_code, get_user_data, get_user_guilds
+from safadprobot.auth.discord_oauth import exchange_code, get_user_data, get_user_guilds, get_login_url
 from safadprobot.db.models import GuildSettings
 from safadprobot.db.database import SessionLocal
 
@@ -10,7 +10,7 @@ dashboard_bp = Blueprint("dashboard", __name__)
 def index():
     if "user" not in session:
         return redirect(get_login_url())
-    return redirect(f"/dashboard?guild_id=YOUR_GUILD_ID")
+    return redirect(f"/dashboard?guild_id={guild_id}")
 
 
 
