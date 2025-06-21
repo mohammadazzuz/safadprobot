@@ -3,7 +3,9 @@ import requests
 from flask import request, redirect, session, url_for
 from safadprobot.db.database import SessionLocal
 from safadprobot.db.models import User
-from safadprobot.auth.discord_oauth import exchange_code, get_user_info, get_user_guilds
+from safadprobot.auth.discord_oauth import exchange_code, get_user_data, get_user_guilds
+
+
 
 DISCORD_CLIENT_ID = os.getenv("DISCORD_CLIENT_ID")
 REDIRECT_URI = os.getenv("REDIRECT_URI")
@@ -22,10 +24,10 @@ def handle_callback():
         return "Failed to get access token", 400
 
     # Step 2: Get user info
-    user_info = get_user_info(token_type, access_token)
-    user_id = int(user_info.get("id"))
-    username = f"{user_info.get('username')}#{user_info.get('discriminator')}"
-    avatar_url = f"https://cdn.discordapp.com/avatars/{user_id}/{user_info.get('avatar')}.png"
+    user_data = get_user_data(token_type, access_token)
+    user_id = int(user_data.get("id"))
+    username = f"{user_data.get('username')}#{user_data.get('discriminator')}"
+    avatar_url = f"https://cdn.discordapp.com/avatars/{user_id}/{user_data.get('avatar')}.png"
 
     # Step 3: Get user guilds
     guilds = get_user_guilds(token_type, access_token)
