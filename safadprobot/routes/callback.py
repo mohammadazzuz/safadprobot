@@ -11,7 +11,7 @@ def callback():
         return "Missing code from Discord", 400
 
     token_data = exchange_code(code)
-    user_data = get_user_data(token_data["token_type"], token_data["access_token"])
+    user_data = get_user_data(token_data["access_token"])
 
     session["user"] = {
         "id": user_data["id"],
