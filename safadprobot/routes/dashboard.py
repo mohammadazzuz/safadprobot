@@ -4,7 +4,7 @@ from safadprobot.db.models import GuildSettings
 
 dashboard_bp = Blueprint("dashboard", __name__)
 
-@dashboard_bp.route("/dashboard", methods=["GET", "POST"])
+@dashboard_bp.route("/")
 def dashboard():
     if "user_id" not in session:
         print("[DASHBOARD] Session expired. Redirecting to login.")
