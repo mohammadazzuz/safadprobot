@@ -12,9 +12,9 @@
   <p>Guild ID: {{ guild_id }}</p>
 
   <form action="/save_welcome" method="POST">
-    <input type="hidden" name="guild_id" value="{{ guild_id }}">
+    <input type="hidden" name="guild_id" value="{{ guild_id }}"><br>
     <label>📢 Welcome Channel ID:</label><br>
-    <input type="text" name="channel_id" required><br><br>
+    <input type="text" name="welcome_channel_id" required><br><br>
 
     <label>💬 Welcome Message:</label><br>
     <textarea name="welcome_message" rows="4" required></textarea><br><br>
