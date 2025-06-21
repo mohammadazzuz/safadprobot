@@ -19,4 +19,14 @@ def callback():
         "discriminator": user_data["discriminator"]
     }
 
-    return redirect(f"/dashboard?guild_id=YOUR_GUILD_ID")
+    guilds = get_user_guilds(token_data["access_token"])
+
+    if not guilds:
+        return "No guilds found for this user", 400
+
+    # نختار أول سيرفر كافتراضي
+    guild_id = guilds[0]["id"]
+
+    print(f"[callback] Selected guild_id: {guild_id}")
+
+    return redirect(f"/dashboard?guild_id={guild_id}")

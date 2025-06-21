@@ -10,7 +10,7 @@ dashboard_bp = Blueprint("dashboard", __name__)
 def index():
     if "user" not in session:
         return redirect(get_login_url())
-    return redirect(f"/dashboard?guild_id=YOUR_GUILD_ID")
+    return redirect(f"/dashboard?guild_id={guild_id}")
 
 
 
