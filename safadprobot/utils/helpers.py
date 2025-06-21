@@ -1,5 +1,5 @@
 # Utility functions
-from db.database import Base, engine
+from safadprobot.utils.helpers import init_db
 
 def init_db():
     Base.metadata.create_all(bind=engine)
