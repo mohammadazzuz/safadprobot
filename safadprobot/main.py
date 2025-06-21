@@ -18,7 +18,8 @@ print("[INIT] Loaded SECRET_KEY")
 
 # تسجيل البلوبريـنتس
 app.register_blueprint(dashboard_bp)
-print("[ROUTES] Dashboard blueprint registered.")
+app.register_blueprint(dashboard_bp, url_prefix="/", name="dashboard")
+
 
 
 
