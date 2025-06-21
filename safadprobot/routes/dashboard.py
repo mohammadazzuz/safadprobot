@@ -10,6 +10,8 @@ def index():
         return redirect(get_login_url())
     return redirect(f"/dashboard?guild_id=YOUR_GUILD_ID")
 
+
+
 @dashboard_bp.route("/dashboard")
 def dashboard():
     if "user" not in session:
