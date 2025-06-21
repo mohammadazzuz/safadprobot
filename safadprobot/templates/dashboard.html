@@ -1,1 +1,25 @@
 <!-- Dashboard HTML UI -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>لوحة تحكم SafadBot</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <h1>مرحباً {{ user.username }}#{{ user.discriminator }}</h1>
+  <p>Guild ID: {{ guild_id }}</p>
+
+  <form action="/save_welcome" method="POST">
+    <input type="hidden" name="guild_id" value="{{ guild_id }}">
+    <label>📢 Welcome Channel ID:</label><br>
+    <input type="text" name="channel_id" required><br><br>
+
+    <label>💬 Welcome Message:</label><br>
+    <textarea name="welcome_message" rows="4" required></textarea><br><br>
+
+    <button type="submit">💾 Save Settings</button>
+  </form>
+</body>
+</html>
