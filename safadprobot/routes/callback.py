@@ -1,32 +1,58 @@
-# OAuth2 callback logic
-from flask import Blueprint, request, redirect, session
-from safadprobot.auth.discord_oauth import exchange_code, get_user_data, get_user_guilds, get_login_url
+import os
+import requests
+from flask import request, redirect, session, url_for
+from safadprobot.db.database import SessionLocal
+from safadprobot.db.models import User
+from safadprobot.auth.discord_oauth import exchange_code, get_user_info, get_user_guilds
 
-callback_bp = Blueprint("callback", __name__)
+DISCORD_CLIENT_ID = os.getenv("DISCORD_CLIENT_ID")
+REDIRECT_URI = os.getenv("REDIRECT_URI")
 
-@callback_bp.route("/callback")
-def callback():
+def handle_callback():
     code = request.args.get("code")
     if not code:
-        return "Missing code from Discord", 400
+        return "No code provided", 400
 
+    # Step 1: Exchange code for token
     token_data = exchange_code(code)
-    user_data = get_user_data(token_data["access_token"])
+    access_token = token_data.get("access_token")
+    token_type = token_data.get("token_type")
 
-    session["user"] = {
-        "id": user_data["id"],
-        "username": user_data["username"],
-        "discriminator": user_data["discriminator"]
-    }
+    if not access_token:
+        return "Failed to get access token", 400
 
-    guilds = get_user_guilds(token_data["access_token"])
+    # Step 2: Get user info
+    user_info = get_user_info(token_type, access_token)
+    user_id = int(user_info.get("id"))
+    username = f"{user_info.get('username')}#{user_info.get('discriminator')}"
+    avatar_url = f"https://cdn.discordapp.com/avatars/{user_id}/{user_info.get('avatar')}.png"
 
-    if not guilds:
-        return "No guilds found for this user", 400
+    # Step 3: Get user guilds
+    guilds = get_user_guilds(token_type, access_token)
+    manageable_guilds = [g for g in guilds if g.get("permissions", 0) & 0x20]
 
-    # نختار أول سيرفر كافتراضي
-    guild_id = guilds[0]["id"]
+    # Step 4: Save to session
+    session["user_id"] = user_id
+    session["username"] = username
+    session["avatar_url"] = avatar_url
+    session["guilds"] = manageable_guilds
+    session["access_token"] = access_token
+    session["token_type"] = token_type
 
-    print(f"[callback] Selected guild_id: {guild_id}")
+    print(f"[AUTH] Logged in as: {username} ({user_id})")
+    print(f"[AUTH] Guilds with manage perms: {len(manageable_guilds)}")
 
-    return redirect(f"/dashboard?guild_id={guild_id}")
+    # Step 5: Add user to DB if not exists
+    db = SessionLocal()
+    existing_user = db.query(User).filter_by(user_id=user_id).first()
+    if not existing_user:
+        print(f"[DB] New user. Adding {username}")
+        new_user = User(user_id=user_id, discord_name=username, guild_id=None)
+        db.add(new_user)
+        db.commit()
+    else:
+        print(f"[DB] Existing user: {username}")
+
+    db.close()
+
+    return redirect(url_for("dashboard"))

@@ -4,7 +4,7 @@ import threading
 from flask import Flask
 
 from safadprobot.routes.dashboard import dashboard_bp
-from safadprobot.routes.callback import callback_bp
+from safadprobot.routes.callback import handle_callback
 
 from safadprobot.bot_instance import run_bot
 
@@ -20,8 +20,7 @@ print("[INIT] Loaded SECRET_KEY")
 app.register_blueprint(dashboard_bp)
 print("[ROUTES] Dashboard blueprint registered.")
 
-app.register_blueprint(callback_bp)
-print("[ROUTES] Callback blueprint registered.")
+
 
 # تهيئة قاعدة البيانات
 #print("[DB] Initializing database...")
@@ -37,6 +36,11 @@ def start_bot():
 bot_thread = threading.Thread(target=start_bot)
 bot_thread.start()
 print("[BOT] Bot thread started.")
+
+# ربط /callback بدون blueprint
+@app.route("/callback")
+def callback():
+    return handle_callback()
 
 # تشغيل تطبيق Flask
 if __name__ == "__main__":
