@@ -8,7 +8,7 @@ dashboard_bp = Blueprint("dashboard", __name__)
 def dashboard():
     if "user_id" not in session:
         print("[DASHBOARD] Session expired. Redirecting to login.")
-        return redirect(url_for("login"))
+        return redirect(url_for("callback"))
 
     db = SessionLocal()
 
