@@ -20,8 +20,10 @@ def handle_callback():
     access_token = token_data.get("access_token")
     token_type = token_data.get("token_type")
 
-    if not access_token:
+    if not token_data or "access_token" not in token_data:
+        print(f"[ERROR] Token data: {token_data}")
         return "Failed to get access token", 400
+
 
     # Step 2: Get user info
     user_data = get_user_data(token_type, access_token)
