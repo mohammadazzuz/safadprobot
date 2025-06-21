@@ -1,6 +1,6 @@
 # Flask dashboard routes
 from flask import Blueprint, render_template, session, redirect, request
-from safadprobot.auth.discord_oauth import get_login_url
+from safadprobot.auth.discord_oauth import exchange_code, get_user_data, get_user_guilds
 from safadprobot.db.models import GuildSettings
 from safadprobot.db.database import SessionLocal
 
@@ -28,8 +28,8 @@ def save_welcome():
     if "user" not in session:
         return redirect("/")
 
-    guild_id = request.form.get("guild_id")
-    welcome_channel_id = request.form.get("welcome_channel_id")
+    guild_id = int(request.form.get("guild_id"))
+    welcome_channel_id = int(request.form.get("welcome_channel_id"))
     welcome_message = request.form.get("welcome_message")
 
     print(f"Saved welcome data: {welcome_channel_id}, {welcome_message}")
@@ -55,5 +55,7 @@ def save_welcome():
 
     db.commit()
     db.close()
+    print(f"guild_id = {guild_id} ({type(guild_id)})")
+
 
     return redirect(request.referrer or "/dashboard")
