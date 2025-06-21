@@ -15,7 +15,7 @@ def get_login_url():
         "client_id": CLIENT_ID,
         "redirect_uri": REDIRECT_URI,
         "response_type": "code",
-        "scope": " ".join(SCOPES)
+        "scope": " ".join(SCOPES),
         "permissions": 8,
         "prompt": "consent"  # بيخليه يعرض صفحة الإضافة كل مرة
     }
