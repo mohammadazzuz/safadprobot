@@ -32,6 +32,7 @@ def handle_callback():
     # Step 3: Get user guilds
     guilds = get_user_guilds(token_type, access_token)
     manageable_guilds = [g for g in guilds if g.get("permissions", 0) & 0x20]
+    print(f"[CALLBACK] Retrieved {len(guilds)} guilds. Manageable: {len(manageable_guilds)}")
 
     # Step 4: Save to session
     session["user_id"] = user_id
