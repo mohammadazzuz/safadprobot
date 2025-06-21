@@ -1,6 +1,8 @@
 # Entry point to run the bot and dashboard
 from safadprobot.utils.helpers import init_db
-init_db()
-print("✅ Database tables initialized")
+
+if __name__ == "__main__":
+    init_db()
+    print("✅ Tables created successfully.")
 
 
