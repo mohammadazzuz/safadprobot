@@ -8,9 +8,9 @@ dashboard_bp = Blueprint("dashboard", __name__)
 def dashboard():
     if "user_id" not in session:
         print("[DASHBOARD] Session expired. Redirecting to login.")
-        return redirect("https://discord.com/api/oauth2/authorize?client_id=YOUR_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI&response_type=code&scope=identify%20guilds")
+        return redirect("https://discord.com/api/oauth2/authorize")
 
-
+    
     db = SessionLocal()
 
     guilds = session.get("guilds", [])
