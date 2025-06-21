@@ -8,7 +8,7 @@ dashboard_bp = Blueprint("dashboard", __name__)
 def dashboard():
     if "user_id" not in session:
         print("[DASHBOARD] Session expired. Redirecting to login.")
-        return redirect("https://discord.com/api/oauth2/authorize")
+        return redirect("https://discord.com/oauth2/authorize?client_id=1385375212140363868&permissions=8&response_type=code&redirect_uri=https%3A%2F%2Fsafadprobot.up.railway.app%2Fcallback&integration_type=0&scope=identify+guilds+bot+connections+messages.read+email+guilds.join+applications.commands+gateway.connect")
 
     
     db = SessionLocal()
