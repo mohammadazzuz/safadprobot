@@ -26,7 +26,7 @@ def handle_callback():
 
 
     # Step 2: Get user info
-    user_data = get_user_data(token_type, access_token)
+    user_data = get_user_data(access_token)
     user_id = int(user_data.get("id"))
     username = f"{user_data.get('username')}#{user_data.get('discriminator')}"
     avatar_url = f"https://cdn.discordapp.com/avatars/{user_id}/{user_data.get('avatar')}.png"
