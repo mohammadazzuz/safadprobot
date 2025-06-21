@@ -37,11 +37,9 @@ def dashboard():
     settings = db.query(GuildSettings).filter_by(guild_id=selected_guild_id).first()
     db.close()
 
-    return render_template(
-        "dashboard.html",
-        username=session.get("username"),
-        avatar_url=session.get("avatar_url"),
-        guilds=guilds,
-        selected_guild_id=selected_guild_id,
-        settings=settings
-    )
+    return render_template("dashboard.html",
+                            username=session.get("username"),
+                            avatar_url=session.get("avatar_url"),
+                            guilds=guilds,
+                            selected_guild_id=selected_guild_id,
+                            settings=settings)
