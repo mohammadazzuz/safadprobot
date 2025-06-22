@@ -16,7 +16,7 @@ def handle_callback():
         return "No code provided", 400
 
     # Step 1: Exchange code for token
-    token_data = exchange_code(code, REDIRECT_URI)
+    token_data = exchange_code(code)
     if not token_data or "access_token" not in token_data:
         return "Failed to get access token", 400
 
