@@ -10,7 +10,13 @@ def dashboard():
     if not session.get("user_id") or not session.get("guilds"):
         print("[DASHBOARD] Session expired. Redirecting to login.")
         return redirect("https://discord.com/oauth2/authorize?client_id=1385375212140363868&response_type=code&redirect_uri=https%3A%2F%2Fsafadprobot.up.railway.app%2Fcallback&scope=identify+guilds+email")
-
+    else:
+        return render_template("dashboard.html",
+                                username=session.get("username"),
+                                avatar_url=session.get("avatar_url"),
+                                guilds=guilds,
+                                selected_guild_id=selected_guild_id,
+                                settings=settings)
     
     db = SessionLocal()
 
