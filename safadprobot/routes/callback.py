@@ -67,8 +67,11 @@ def handle_callback():
     # بعد الحصول على guilds
     session["guild_ids"] = [g["id"] for g in manageable_guilds]
 
-    # redirect يدوي بسيط
-    return redirect(f"/dashboard?guild_id={first_guild_id}")
+    if manageable_guilds:
+        first_guild_id = manageable_guilds[0]["id"]
+        return redirect(url_for("dashboard.dashboard", guild_id=first_guild_id))
+    else:
+        return "No manageable guilds found.", 400
 
   
 
