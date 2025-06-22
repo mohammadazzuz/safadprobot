@@ -6,7 +6,7 @@ dashboard_bp = Blueprint("dashboard", __name__)
 
 @dashboard_bp.route("/", methods=["GET", "POST"])
 def dashboard():
-    guild_id = request.args.get('guild_id')
+    #guild_id = request.args.get('guild_id')
     return redirect("https://discord.com/oauth2/authorize?client_id=1385375212140363868&response_type=code&redirect_uri=https%3A%2F%2Fsafadprobot.up.railway.app%2Fcallback&scope=identify+guilds+email")
     
     db = SessionLocal()
@@ -36,9 +36,9 @@ def dashboard():
     settings = db.query(GuildSettings).filter_by(guild_id=selected_guild_id).first()
     db.close()
 
-    return render_template("dashboard.html",
-                            username=session.get("username"),
-                            avatar_url=session.get("avatar_url"),
-                            guilds=guilds,
-                            selected_guild_id=selected_guild_id,
-                            settings=settings)
+        return render_template("dashboard.html",
+                                username=session.get("username"),
+                                avatar_url=session.get("avatar_url"),
+                                guilds=guilds,
+                                selected_guild_id=selected_guild_id,
+                                settings=settings)
