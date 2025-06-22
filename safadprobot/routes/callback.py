@@ -70,7 +70,7 @@ def handle_callback():
 
     if manageable_guilds:
         first_guild_id = manageable_guilds[0]["id"]
-        return redirect(url_for("dashboard_bp.dashboard"))
+        return redirect(url_for("dashboard.dashboard"))
     else:
         return "No manageable guilds found.", 400
 

@@ -21,7 +21,9 @@ app.register_blueprint(dashboard_bp, url_prefix="/dashboard")
 
 print("[ROUTES] Dashboard blueprint registered.")
 
-
+@app.route("/")
+def index():
+    return redirect(url_for("dashboard.dashboard"))
 
 # تهيئة قاعدة البيانات
 #print("[DB] Initializing database...")
@@ -43,9 +45,7 @@ print("[BOT] Bot thread started.")
 def callback():
     return handle_callback()
 
-@app.route("/")
-def index():
-    return redirect(url_for("dashboard_bp.dashboard_bp"))
+
 
 
 
