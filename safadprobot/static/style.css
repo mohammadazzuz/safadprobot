@@ -1,17 +1,99 @@
-/* Basic CSS */
 body {
-background-color: #f4f6fa;
+    background-color: #212121;
+    color: #ffffff;
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
 }
-.navbar {
-background-color: #5865F2;
+
+.container {
+    margin-top: 40px;
+    background-color: #1e1e2e;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 12px 17px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease;
+    animation: fadeIn 0.4s ease-in-out;
 }
-.navbar-brand, .nav-link, .dropdown-item {
-color: #fff !important;
+
+.container:hover {
+    transform: scale(1.01);
 }
-.card {
-border-radius: 12px;
-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+label {
+    color: #ffffff;
 }
-.form-control:focus {
-box-shadow: 0 0 0 0.2rem rgba(88, 101, 242, 0.25);
+
+input.form-control,
+select.form-control {
+    background-color: #2c2c2c;
+    color: #ffffff;
+    border: 1px solid #555555;
+    border-radius: 6px;
+    padding: 10px;
+    margin-bottom: 15px;
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+select.form-control:focus,
+input.form-control:focus {
+    border-color: #00b0dc;
+    box-shadow: 0 0 5px rgba(0, 188, 212, 0.8);
+}
+
+.btn {
+    background-color: #00b0dc;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.btn:hover {
+    background-color: #007aa7;
+    transform: translateY(-2px);
+}
+
+.logout-link,
+.back-link {
+    color: #ff5252;
+    text-decoration: none;
+    margin-left: 10px;
+    transition: color 0.2s ease;
+}
+
+.logout-link:hover,
+.back-link:hover {
+    color: #ff867f;
+}
+
+.user-info {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+}
+
+.user-info img {
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    border: 2px solid #00b0dc;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }

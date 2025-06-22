@@ -1,57 +1,47 @@
-<!-- Dashboard HTML UI -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-    <link rel="stylesheet" href="/static/style.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
+    <title>لوحة التحكم</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+<!-- ... -->
 <body>
-    <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">💼 لوحة تحكم البوت</a>
-            <div class="d-flex align-items-center">
-                <span class="text-white me-3">{{ username }}</span>
-                <img src="{{ avatar_url }}" alt="avatar" class="rounded-circle" width="40" height="40">
-            </div>
-        </div>
-    </nav>
+  <div class="top-bar">
+    <img src="{{ avatar_url }}" class="avatar"> 
+    <span class="username">{{ username }}</span>
+  </div>
 
-    <div class="container mt-5">
-        <div class="card p-4">
-            <h4 class="mb-4">⚙️ إعدادات السيرفر</h4>
-            <form method="get" action="/dashboard">
-                <div class="mb-3">
-                    <label for="guildSelect" class="form-label">اختر السيرفر</label>
-                    <select class="form-select" id="guildSelect" name="guild_id" onchange="this.form.submit()">
-                        <option selected disabled>اختر السيرفر</option>
-                        {% for guild in guilds %}
-                            <option value="{{ guild.id }}" {% if selected_guild_id == guild.id %}selected{% endif %}>{{ guild.name }}</option>
+  <div class="container mt-5">
+    <h4>🛠 إعدادات السيرفر</h4>
+    <form method="get" action="{{ url_for('dashboard.dashboard') }}">
+      <select name="guild_id" id="guild_id" onchange="this.form.submit()">
+        {% for guild in guilds %}
+          <option value="{{ guild.id }}" {% if selected_guild_id == guild.id %}selected{% endif %}>
+            {{ guild.name }}
+          </option>
+        {% endfor %}
+      </select>
+    </form>
 
-                        {% endfor %}
-                    </select>
-                </div>
-            </form>
+    {% if selected_guild_id %}
+    <form method="post">
+      <input type="hidden" name="guild_id" value="{{ selected_guild_id }}">
+      <label for="channel_id">قناة الترحيب:</label>
+      <input type="text" id="channel_id" name="channel_id" value="{{ settings.welcome_channel_id or '' }}">
 
-            {% if selected_guild %}
-            <form method="post" action="/save_welcome">
-                <input type="hidden" name="guild_id" value="{{ selected_guild }}">
-                <div class="mb-3">
-                    <label class="form-label">📝 رسالة الترحيب</label>
-                    <input type="text" name="welcome_message" class="form-control" value="{{ settings.welcome_message or '' }}">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">📢 قناة الترحيب</label>
-                    <input type="text" name="welcome_channel_id" class="form-control" value="{{ settings.welcome_channel_id or '' }}">
-                </div>
-                <button type="submit" class="btn btn-primary">💾 حفظ الإعدادات</button>
-            </form>
-            {% endif %}
-        </div>
+      <label for="welcome_message">رسالة الترحيب:</label>
+      <input type="text" id="welcome_message" name="welcome_message" value="{{ settings.welcome_message or '' }}">
+
+      <button type="submit">💾 حفظ</button>
+    </form>
+    {% endif %}
+
+    <div class="footer-links">
+      <a href="{{ url_for('dashboard.dashboard') }}">🔙 الرجوع للقائمة</a>
+      <a href="{{ url_for('out_oauth.logout') }}">🚪 تسجيل الخروج</a>
     </div>
+  </div>
 </body>
-</html>
 
+</html>
