@@ -1,8 +1,8 @@
 from flask import Blueprint, request, redirect, session, url_for
 from sqlalchemy.orm import Session
 
-from database import SessionLocal
-from models import User
+from safadprobot.db.database import SessionLocal
+from safadprobot.db.models import User
 from out_oauth.discord_oauth import exchange_code, get_user_data, get_user_guilds
 
 callback = Blueprint("callback", __name__)  # <-- بلوبرنت باسم callback
