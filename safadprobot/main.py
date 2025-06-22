@@ -49,6 +49,7 @@ def index():
 
 
 
+
 print(app.url_map)
 
 # تشغيل تطبيق Flask
