@@ -64,6 +64,6 @@ def handle_callback():
 
         # خذ أول سيرفر كافتراضي إذا موجود
 
-    return redirect(url_for("dashboard.dashboard"))
+    return redirect(url_for("dashboard.dashboard_route"))
   
 
