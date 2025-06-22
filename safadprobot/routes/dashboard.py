@@ -13,7 +13,7 @@ def dashboard():
     db = SessionLocal()
     guilds = session.get("guilds", [])
     if not guilds:
-        return redirect(url_for("callback.callback"))  # أو عرض رسالة عدم وجود صلاحية
+        return redirect(url_for("callback"))  # أو عرض رسالة عدم وجود صلاحية
 
     selected_guild_id = request.args.get("guild_id") or request.form.get("guild_id")
     settings = None
