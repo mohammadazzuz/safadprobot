@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, session, redirect, url_for
-from safadprobot.models import GuildSettings
-from safadprobot.database import SessionLocal
+from safadprobot.db.models import GuildSettings
+from safadprobot.db.database import SessionLocal
 from safadprobot.auth.discord_oauth import get_login_url
 
 dashboard_bp = Blueprint("dashboard", __name__)
