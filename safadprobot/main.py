@@ -45,7 +45,8 @@ def callback():
 
 @app.route("/")
 def index():
-    return redirect(url_for('dashboard.dashboard'))
+    return redirect(url_for("dashboard_bp.dashboard"))
+
 
 
 print(app.url_map)
