@@ -16,14 +16,11 @@ def handle_callback():
         return "No code provided", 400
 
     # Step 1: Exchange code for token
-    token_data = exchange_code(code)
-    access_token = token_data.get("access_token")
-    token_type = token_data.get("token_type")
-
+    token_data = exchange_code(code, REDIRECT_URI)
     if not token_data or "access_token" not in token_data:
-        print(f"[ERROR] Token data: {token_data}")
         return "Failed to get access token", 400
 
+    access_token = token_data["access_token"]
 
     # Step 2: Get user info
     user_data = get_user_data(access_token)
@@ -40,37 +37,33 @@ def handle_callback():
     session["user_id"] = user_id
     session["username"] = username
     session["avatar_url"] = avatar_url
-    session["guilds"] = guilds
     session["access_token"] = access_token
-    session["token_type"] = token_type
+    session["token_type"] = token_data["token_type"]
 
-    session["guild_ids"] = [g["id"] for g in manageable_guilds]
     print(f"[AUTH] Logged in as: {username} ({user_id})")
     print(f"[AUTH] Guilds with manage perms: {len(manageable_guilds)}")
 
     # Step 5: Add user to DB if not exists
     db = SessionLocal()
     existing_user = db.query(User).filter_by(user_id=user_id).first()
+
+    first_guild_id = manageable_guilds[0]["id"] if manageable_guilds else None
+
     if not existing_user:
         print(f"[DB] New user. Adding {username}")
-        new_user = User(user_id=user_id, discord_name=username, guild_id=None)
+        new_user = User(user_id=user_id, discord_name=username, guild_id=first_guild_id)
+
         db.add(new_user)
-        db.commit()
     else:
         print(f"[DB] Existing user: {username}")
+        existing_user.guild_id = existing_user.guild_id or first_guild_id
 
+    db.commit()  
     db.close()
-
-
-
-        # خذ أول سيرفر كافتراضي إذا موجود
-
-    # بعد الحصول على guilds
     
 
     if manageable_guilds:
-        first_guild_id = manageable_guilds[0]["id"]
-        return redirect(url_for("dashboard.dashboard"))
+        return redirect(url_for("dashboard.dashboard",  guild_id=first_guild_id))
     else:
         return "No manageable guilds found.", 400
 
