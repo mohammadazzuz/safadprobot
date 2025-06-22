@@ -4,7 +4,7 @@ from safadprobot.db.models import GuildSettings
 
 dashboard_bp = Blueprint("dashboard", __name__)
 
-@dashboard_bp.route("/", methods=["GET", "POST"])
+@dashboard_bp.route("/")
 def dashboard():
     guild_id = request.args.get('guild_id')
     if not session.get("user_id") or not session.get("guilds"):
