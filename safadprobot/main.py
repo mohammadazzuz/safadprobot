@@ -17,7 +17,7 @@ app.secret_key = os.getenv("SECRET_KEY", "supersecretkey")
 print("[INIT] Loaded SECRET_KEY")
 
 # تسجيل البلوبريـنتس
-app.register_blueprint(dashboard_bp, url_prefix="/")
+app.register_blueprint(dashboard_bp, url_prefix="/dashboard")
 
 print("[ROUTES] Dashboard blueprint registered.")
 

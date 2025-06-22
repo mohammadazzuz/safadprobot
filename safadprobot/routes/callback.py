@@ -43,7 +43,7 @@ def handle_callback():
     session["guilds"] = guilds
     session["access_token"] = access_token
     session["token_type"] = token_type
-    
+
     session["guild_ids"] = [g["id"] for g in manageable_guilds]
     print(f"[AUTH] Logged in as: {username} ({user_id})")
     print(f"[AUTH] Guilds with manage perms: {len(manageable_guilds)}")
@@ -70,7 +70,7 @@ def handle_callback():
 
     if manageable_guilds:
         first_guild_id = manageable_guilds[0]["id"]
-        return redirect(url_for("dashboard.dashboard", guild_id=first_guild_id))
+        return redirect(url_for("dashboard.dashboard_route"))
     else:
         return "No manageable guilds found.", 400
 

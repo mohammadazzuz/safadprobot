@@ -1,13 +1,17 @@
 from flask import Blueprint, render_template, session, request, redirect, url_for
 from safadprobot.db.database import SessionLocal
 from safadprobot.db.models import GuildSettings
+from safadprobot.auth.discord_oauth import get_login_url
+
+
 
 dashboard_bp = Blueprint("dashboard", __name__)
 
 @dashboard_bp.route("/", methods=["GET", "POST"])
 def dashboard():
     #guild_id = request.args.get('guild_id')
-    return redirect("https://discord.com/oauth2/authorize?client_id=1385375212140363868&response_type=code&redirect_uri=https%3A%2F%2Fsafadprobot.up.railway.app%2Fcallback&scope=identify+guilds+email")
+   
+    return redirect(get_login_url())
     
     db = SessionLocal()
 
@@ -37,8 +41,8 @@ def dashboard():
     db.close()
 
     return render_template("dashboard.html",
-                            username=session.get("username"),
-                            avatar_url=session.get("avatar_url"),
-                            guilds=guilds,
-                            selected_guild_id=selected_guild_id,
-                            settings=settings)
+                        username=session.get("username"),
+                        avatar_url=session.get("avatar_url"),
+                        guilds=guilds,
+                        selected_guild_id=selected_guild_id,
+                        settings=settings)
