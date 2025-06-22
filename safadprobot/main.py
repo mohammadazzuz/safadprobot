@@ -4,7 +4,7 @@ import threading
 from flask import Flask
 from flask import Flask, redirect, url_for, render_template, request, session
 from safadprobot.routes.dashboard import dashboard_bp
-from safadprobot.routes.callback import handle_callback
+from safadprobot.routes.callback import callback
 from safadprobot.auth.discord_oauth import exchange_code, get_login_url, get_user_data, get_user_guilds
 from safadprobot.routes.out_oauth import out_oauth
 from safadprobot.bot_instance import run_bot
@@ -17,6 +17,9 @@ app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY", "supersecretkey")
 print("[INIT] Loaded SECRET_KEY")
 
+app.register_blueprint(callback)
+
+
 # تسجيل البلوبريـنتس
 app.register_blueprint(dashboard_bp, url_prefix="/dashboard")
 
@@ -24,13 +27,6 @@ print("[ROUTES] Dashboard blueprint registered.")
 
 app.register_blueprint(out_oauth)
 
-
-
-
-# تهيئة قاعدة البيانات
-#print("[DB] Initializing database...")
-#init_db()
-#print("[DB] Database initialized.")
 
 # تشغيل بوت ديسكورد في Thread منفصل
 def start_bot():
@@ -42,10 +38,7 @@ bot_thread = threading.Thread(target=start_bot)
 bot_thread.start()
 print("[BOT] Bot thread started.")
 
-# ربط /callback بدون blueprint
-@app.route("/callback")
-def callback():
-    return handle_callback()
+
 
 @app.route("/")
 def index():
