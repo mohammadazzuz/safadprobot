@@ -9,9 +9,10 @@ dashboard_bp = Blueprint("dashboard", __name__)
 
 @dashboard_bp.route("/", methods=["GET", "POST"])
 def dashboard():
-    #guild_id = request.args.get('guild_id')
-   
-    return redirect(get_login_url())
+    if "access_token" not in session:
+        return redirect(get_login_url())
+    
+
     
     db = SessionLocal()
 
