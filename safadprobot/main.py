@@ -2,7 +2,7 @@
 import os
 import threading
 from flask import Flask
-from flask import Flask, redirect, url_for
+from flask import Flask, redirect, url_for, render_template
 from safadprobot.routes.dashboard import dashboard_bp
 from safadprobot.routes.callback import handle_callback
 from safadprobot.routes.out_oauth import out_oauth
@@ -48,7 +48,7 @@ def callback():
 
 @app.route("/")
 def index():
-    return redirect(url_for("dashboard.dashboard"))
+    return render_template("index.html")
 
 
 
