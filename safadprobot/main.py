@@ -43,6 +43,11 @@ print("[BOT] Bot thread started.")
 def callback():
     return handle_callback()
 
+@app.route("/")
+def index():
+    return redirect(url_for('dashboard.dashboard'))
+
+
 print(app.url_map)
 
 # تشغيل تطبيق Flask
