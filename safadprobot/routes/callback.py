@@ -64,6 +64,11 @@ def handle_callback():
 
         # خذ أول سيرفر كافتراضي إذا موجود
 
-    return redirect(url_for("dashboard.dashboard_route"))
+    # بعد الحصول على guilds
+    session["guild_ids"] = [g["id"] for g in manageable_guilds]
+
+    # redirect يدوي بسيط
+    return redirect(f"/dashboard?guild_id={first_guild_id}")
+
   
 
