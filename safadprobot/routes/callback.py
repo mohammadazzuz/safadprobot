@@ -5,7 +5,7 @@ from safadprobot.db.database import SessionLocal
 from safadprobot.db.models import User
 from out_oauth.discord_oauth import exchange_code, get_user_data, get_user_guilds
 
-callback = Blueprint("callback", __name__)  # <-- بلوبرنت باسم callback
+callback = Blueprint("handle_callback", __name__)  # <-- بلوبرنت باسم callback
 
 @callback.route("/callback")
 def handle_callback():

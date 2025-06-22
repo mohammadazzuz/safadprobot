@@ -4,7 +4,7 @@ import threading
 from flask import Flask
 from flask import Flask, redirect, url_for, render_template, request, session
 from safadprobot.routes.dashboard import dashboard_bp
-from safadprobot.routes.callback import callback
+from safadprobot.routes.callback import handle_callback
 from safadprobot.auth.discord_oauth import exchange_code, get_login_url, get_user_data, get_user_guilds
 from safadprobot.routes.out_oauth import out_oauth
 from safadprobot.bot_instance import run_bot
