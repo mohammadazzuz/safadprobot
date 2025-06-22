@@ -5,7 +5,7 @@ from flask import Flask
 from flask import Flask, redirect, url_for
 from safadprobot.routes.dashboard import dashboard_bp
 from safadprobot.routes.callback import handle_callback
-from routes.out_oauth import out_oauth
+from safadprobot.routes.out_oauth import out_oauth
 from safadprobot.bot_instance import run_bot
 
 # إنشاء تطبيق Flask
