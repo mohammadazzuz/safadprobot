@@ -62,10 +62,10 @@ def handle_callback():
 
 
 
-    # خذ أول سيرفر كافتراضي إذا موجود
-if manageable_guilds:
-    first_guild_id = manageable_guilds[0]["id"]
-    return redirect(url_for("dashboard.dashboard", guild_id=first_guild_id))
-else:
-    return "No manageable guilds found.", 400
+        # خذ أول سيرفر كافتراضي إذا موجود
+    if manageable_guilds:
+        first_guild_id = manageable_guilds[0]["id"]
+        return redirect(url_for("dashboard.dashboard", guild_id=first_guild_id))
+    else:
+        return "No manageable guilds found.", 400
 
