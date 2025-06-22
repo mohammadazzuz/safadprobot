@@ -40,7 +40,7 @@ def handle_callback():
     session["user_id"] = user_id
     session["username"] = username
     session["avatar_url"] = avatar_url
-    session["guilds"] = manageable_guilds
+    session["guilds"] = guilds
     session["access_token"] = access_token
     session["token_type"] = token_type
 

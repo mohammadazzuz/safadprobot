@@ -7,7 +7,7 @@ dashboard_bp = Blueprint("dashboard", __name__)
 @dashboard_bp.route('dashboard', methods=["GET", "POST"])
 def dashboard():
     guild_id = request.args.get('guild_id')
-    if "user_id" not in session:
+    if not session.get("user_id") or not session.get("guilds"):
         print("[DASHBOARD] Session expired. Redirecting to login.")
         return redirect("https://discord.com/oauth2/authorize?client_id=1385375212140363868&response_type=code&redirect_uri=https%3A%2F%2Fsafadprobot.up.railway.app%2Fcallback&scope=identify+guilds+email")
 
