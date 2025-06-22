@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 
 from safadprobot.db.database import SessionLocal
 from safadprobot.db.models import User
-from out_oauth.discord_oauth import exchange_code, get_user_data, get_user_guilds
+from safadprobot.auth.discord_oauth import exchange_code, get_user_data, get_user_guilds
 
 callback = Blueprint("handle_callback", __name__)  # <-- بلوبرنت باسم callback
 
